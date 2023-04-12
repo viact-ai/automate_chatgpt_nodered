@@ -1,66 +1,132 @@
-[
-    {
-        "id": "iot-device",
-        "type": "iot-device",
-        "name": "IoT Device",
-        "config": {
-            "deviceName": "My IoT Device",
-            "deviceId": "iot-device-001",
-            "deviceType": "camera",
-            "deviceLocation": "Living Room"
+{
+    "flows": [
+        {
+            "id": "2b3f609c.d1c088",
+            "type": "inject",
+            "z": "a14a929a.53252",
+            "name": "",
+            "props": [
+                {
+                    "p": "payload"
+                }
+            ],
+            "repeat": "",
+            "crontab": "",
+            "once": false,
+            "onceDelay": 0.1,
+            "topic": "",
+            "payload": "",
+            "payloadType": "date",
+            "x": 190,
+            "y": 160,
+            "wires": [
+                [
+                    "79a3c6ba.8f02f8"
+                ]
+            ]
+        },
+        {
+            "id": "79a3c6ba.8f02f8",
+            "type": "iot-device",
+            "z": "a14a929a.53252",
+            "name": "IoT Device",
+            "deviceid": "12345",
+            "apikey": "abcdefg",
+            "x": 430,
+            "y": 160,
+            "wires": [
+                [
+                    "f1c6a31c.5487f8"
+                ]
+            ]
+        },
+        {
+            "id": "f1c6a31c.5487f8",
+            "type": "add-device",
+            "z": "a14a929a.53252",
+            "name": "Camera",
+            "deviceid": "",
+            "apikey": "",
+            "x": 650,
+            "y": 160,
+            "wires": [
+                [
+                    "e62867c7.73f1d"
+                ]
+            ]
+        },
+        {
+            "id": "e62867c7.73f1d",
+            "type": "rtsp-stream",
+            "z": "a14a929a.53252",
+            "name": "Camera Stream",
+            "url": "rtsp://your_camera_url",
+            "output": "jpeg",
+            "x": 870,
+            "y": 160,
+            "wires": [
+                [
+                    "809b4202.0d1e68"
+                ]
+            ]
+        },
+        {
+            "id": "809b4202.0d1e68",
+            "type": "ai-engine",
+            "z": "a14a929a.53252",
+            "name": "AI Engine",
+            "deviceid": "",
+            "apikey": "",
+            "model": "object-detection",
+            "x": 1100,
+            "y": 160,
+            "wires": [
+                [
+                    "b202ebeb.e2ae"
+                ]
+            ]
+        },
+        {
+            "id": "b202ebeb.e2ae",
+            "type": "telegram",
+            "z": "a14a929a.53252",
+            "name": "Telegram Alert",
+            "bot": "",
+            "topic": "",
+            "x": 1330,
+            "y": 160,
+            "wires": []
+        },
+        {
+            "id": "6b3dab96.3c8b1c",
+            "type": "email",
+            "z": "a14a929a.53252",
+            "server": "smtp.gmail.com",
+            "port": "465",
+            "secure": true,
+            "tls": true,
+            "name": "Email Alert",
+            "dname": "Recipient Name",
+            "creds": "12345",
+            "to": "youremail@yourdomain.com",
+            "subject": "IoT Device Overload",
+            "body": "The IoT device is overloaded, please take action immediately.",
+            "x": 1330,
+            "y": 220,
+            "wires": []
+        },
+        {
+            "id": "c06278de.0970e8",
+            "type": "iot-device",
+            "z": "",
+            "name": "",
+            "deviceid": "",
+            "apikey": "",
+            "x": 290,
+            "y": 220,
+            "wires": [
+                []
+            ]
         }
-    },
-    {
-        "id": "camera",
-        "type": "camera",
-        "name": "Camera",
-        "config": {
-            "deviceName": "Camera 1",
-            "deviceId": "camera-001",
-            "deviceType": "camera"
-        }
-    },
-    {
-        "id": "rtsp-stream",
-        "type": "rtsp-stream",
-        "name": "RTSP Stream",
-        "config": {
-            "streamName": "Camera 1 Stream",
-            "streamUrl": "rtsp://camera1.stream",
-            "iotDevice": "iot-device"
-        }
-    },
-    {
-        "id": "ai-engine",
-        "type": "ai-engine",
-        "name": "AI Engine",
-        "config": {
-            "engineName": "Object Detection",
-            "engineType": "object-detection",
-            "iotDevice": "iot-device",
-            "connectedCameras": ["camera"]
-        }
-    },
-    {
-        "id": "telegram-alert",
-        "type": "telegram-alert",
-        "name": "Telegram Alert",
-        "config": {
-            "alertName": "AI Alert",
-            "alertType": "ai-output",
-            "iotDevice": "iot-device",
-            "alertMessage": "AI detected an object"
-        }
-    },
-    {
-        "id": "email-alert",
-        "type": "email-alert",
-        "name": "Email Alert",
-        "config": {
-            "alertName": "Device Overload",
-            "alertType": "device-overload",
-            "iotDevice": "iot-device",
-            "alertMessage": "IoT device is overloaded"
-        }
-    }
-]
+    ]
+}
