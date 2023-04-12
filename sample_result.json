@@ -1,0 +1,66 @@
+[
+    {
+        "id": "iot-device",
+        "type": "iot-device",
+        "name": "IoT Device",
+        "config": {
+            "deviceName": "My IoT Device",
+            "deviceId": "iot-device-001",
+            "deviceType": "camera",
+            "deviceLocation": "Living Room"
+        }
+    },
+    {
+        "id": "camera",
+        "type": "camera",
+        "name": "Camera",
+        "config": {
+            "deviceName": "Camera 1",
+            "deviceId": "camera-001",
+            "deviceType": "camera"
+        }
+    },
+    {
+        "id": "rtsp-stream",
+        "type": "rtsp-stream",
+        "name": "RTSP Stream",
+        "config": {
+            "streamName": "Camera 1 Stream",
+            "streamUrl": "rtsp://camera1.stream",
+            "iotDevice": "iot-device"
+        }
+    },
+    {
+        "id": "ai-engine",
+        "type": "ai-engine",
+        "name": "AI Engine",
+        "config": {
+            "engineName": "Object Detection",
+            "engineType": "object-detection",
+            "iotDevice": "iot-device",
+            "connectedCameras": ["camera"]
+        }
+    },
+    {
+        "id": "telegram-alert",
+        "type": "telegram-alert",
+        "name": "Telegram Alert",
+        "config": {
+            "alertName": "AI Alert",
+            "alertType": "ai-output",
+            "iotDevice": "iot-device",
+            "alertMessage": "AI detected an object"
+        }
+    },
+    {
+        "id": "email-alert",
+        "type": "email-alert",
+        "name": "Email Alert",
+        "config": {
+            "alertName": "Device Overload",
+            "alertType": "device-overload",
+            "iotDevice": "iot-device",
+            "alertMessage": "IoT device is overloaded"
+        }
+    }
+]
