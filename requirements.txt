@@ -3,3 +3,5 @@ python-dotenv
 tiktoken
 openpyxl
 pandas
+streamlit
+tiktoken

@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  node-red-demo-app:
+    container_name: node-red-demo-app
+    build: .
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - 8501:8501
+
+  node-red-server:
+    container_name: node-red-server
+    image: nodered/node-red:2.2.3-12
+    ports:
+      - 1880:1880
+    volumes:
+      - node-red_data:/data
+    restart: always
+
+volumes:
+  node-red_data:
