@@ -22,25 +22,21 @@ logger.addHandler(fhandler)
 
 def main():
     st.title("Gereate Node-RED flow")
-    requirements = st.text_area("Requirements")
+    requirements = st.text_area(
+        "Requirements/Steps in the flow that you want to create")
     if st.button("Generate"):
         placeholder = st.empty()
         with placeholder.container():
             with st.spinner("Generating..."):
-                json_txt = utils.gpt_generate_node_red_flow(requirements)
+                resp_txt = utils.gpt_generate_node_red_flow(requirements)
+                logger.info(f"Generated response: {resp_txt}")
 
-            try:
-                json_data = json.loads(json_txt)
-            except json.JSONDecodeError:
+            code_blocks = utils.extract_code_blocks_from_md(resp_txt)
+            if code_blocks is None:
                 st.error("Cannot generate flow, please try again")
                 logger.error("Cannot generate flow, please try again")
-                logger.error(f"Returned json: {json_txt}")
                 return
-
-            if isinstance(json_data, list):
-                json_data = {
-                    "flows": json_data,
-                }
+            json_data = utils.process_code_blocks(code_blocks)
 
             logger.info(f"Generated json: {json.dumps(json_data, indent=4)}")
 
