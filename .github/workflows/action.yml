@@ -18,9 +18,9 @@ jobs:
         command_timeout: 60m
         script: |
           cd /root/automate_chatgpt_nodered
-          source /opt/automate_chatgpt/bin/activate && pip install -r requirements.txt
           git checkout main
           git reset --hard HEAD
           git pull origin main
+          source /opt/automate_chatgpt/bin/activate && pip install -r requirements.txt
           systemctl restart automate-chatgpt
           systemctl status automate-chatgpt
